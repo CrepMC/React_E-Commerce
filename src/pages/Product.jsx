@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Skeleton from "react-loading-skeleton";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import Marquee from "react-fast-marquee";
 import { useDispatch } from "react-redux";
 import { addCart } from "../redux/action";
@@ -9,12 +9,14 @@ import { Footer, Navbar } from "../components";
 
 const Product = () => {
   const { id } = useParams();
-  const [product, setProduct] = useState([]);
+  const [product, setProduct] = useState(null);
   const [similarProducts, setSimilarProducts] = useState([]);
   const [loading, setLoading] = useState(false);
   const [loading2, setLoading2] = useState(false);
+  const navigate = useNavigate();
 
   const dispatch = useDispatch();
+
 
   const addProduct = (product) => {
     dispatch(addCart(product));
@@ -37,6 +39,11 @@ const Product = () => {
     };
     getProduct();
   }, [id]);
+
+  const handleBuy = () => {
+    addProduct(product);
+    navigate("/checkout");
+  };
 
   const Loading = () => {
     return (
@@ -62,6 +69,8 @@ const Product = () => {
   };
 
   const ShowProduct = () => {
+    if (!product) return null;
+
     return (
       <>
         <div className="container my-5 py-2">
@@ -71,8 +80,8 @@ const Product = () => {
                 className="img-fluid"
                 src={product.image}
                 alt={product.title}
-                width="400px"
-                height="400px"
+                width="300px"
+                height="300px"
               />
             </div>
             <div className="col-md-6 col-md-6 py-5">
@@ -83,12 +92,20 @@ const Product = () => {
                 <i className="fa fa-star"></i>
               </p>
               <h3 className="display-6  my-4">${product.price}</h3>
-              <p className="lead">{product.description}</p>
+              <p className="lead">
+                {product.description}
+              </p>
               <button
                 className="btn btn-outline-dark"
                 onClick={() => addProduct(product)}
               >
                 Add to Cart
+              </button>
+              <button
+                className="btn btn-dark mx-3"
+                onClick={handleBuy}
+              >
+                Buy
               </button>
               <Link to="/cart" className="btn btn-dark mx-3">
                 Go to Cart
@@ -135,17 +152,14 @@ const Product = () => {
                     className="card-img-top p-3"
                     src={item.image}
                     alt="Card"
-                    height={300}
-                    width={300}
+                    height={200}
+                    width={200}
                   />
                   <div className="card-body">
                     <h5 className="card-title">
                       {item.title.substring(0, 15)}...
                     </h5>
                   </div>
-                  {/* <ul className="list-group list-group-flush">
-                    <li className="list-group-item lead">${product.price}</li>
-                  </ul> */}
                   <div className="card-body">
                     <Link
                       to={"/product/" + item.id}
@@ -175,7 +189,7 @@ const Product = () => {
         <div className="row">{loading ? <Loading /> : <ShowProduct />}</div>
         <div className="row my-5 py-5">
           <div className="d-none d-md-block">
-          <h2 className="">You may also Like</h2>
+            <h2 className="">You may also Like</h2>
             <Marquee
               pauseOnHover={true}
               pauseOnClick={true}
@@ -190,5 +204,6 @@ const Product = () => {
     </>
   );
 };
+
 
 export default Product;

@@ -17,9 +17,13 @@ import {
   Register,
   Checkout,
   PageNotFound,
+  UserEdit,
+  Profile,
 } from "./pages";
+
 import ScrollToTop from "./components/ScrollToTop";
 import { Toaster } from "react-hot-toast";
+import RequireAuth from "./components/RequireAuth"; // Import the HOC
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -27,17 +31,18 @@ root.render(
     <ScrollToTop>
       <Provider store={store}>
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/product" element={<Products />} />
-          <Route path="/product/:id" element={<Product />} />
-          <Route path="/about" element={<AboutPage />} />
-          <Route path="/contact" element={<ContactPage />} />
-          <Route path="/cart" element={<Cart />} />
+          <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
+          <Route path="/product" element={<RequireAuth><Products /></RequireAuth>} />
+          <Route path="/product/:id" element={<RequireAuth><Product /></RequireAuth>} />
+          <Route path="/about" element={<RequireAuth><AboutPage /></RequireAuth>} />
+          <Route path="/contact" element={<RequireAuth><ContactPage /></RequireAuth>} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/checkout" element={<Checkout />} />
+          <Route path="/user" element={<RequireAuth><Profile /></RequireAuth>} />
+          <Route path="/user/edit" element={<RequireAuth><UserEdit /></RequireAuth>} />
+          <Route path="/cart" element={<RequireAuth><Cart /></RequireAuth>} />
+          <Route path="/checkout" element={<RequireAuth><Checkout /></RequireAuth>} />
           <Route path="*" element={<PageNotFound />} />
-          <Route path="/product/*" element={<PageNotFound />} />
         </Routes>
       </Provider>
     </ScrollToTop>
