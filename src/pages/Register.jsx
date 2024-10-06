@@ -49,11 +49,10 @@ const Register = () => {
       // Log in the user automatically after registration
       await auth.signInWithEmailAndPassword(email, password);
 
+      setSuccess("Registration successful! Redirecting to login...");
       // Redirect to the home page after successful registration and login
       navigate("/");
 
-      setSuccess("Registration successful! Redirecting to login...");
-      setTimeout(() => navigate("/login"), 2000); // Redirect after 2 seconds
     } catch (error) {
       setError("Error registering: " + error.message);
     }
