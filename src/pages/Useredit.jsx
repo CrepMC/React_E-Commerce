@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { db, auth } from "../firebase/firebase-config";
+import { db, auth, storage } from "../firebase/firebase-config";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { toast } from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 import { Footer, Navbar } from "../components";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; 
+import { updateProfile } from "firebase/auth";
 
 const UserEdit = () => {
   const [userData, setUserData] = useState({
@@ -12,6 +14,8 @@ const UserEdit = () => {
     phone: "",
   });
   const [loading, setLoading] = useState(true);
+  const [image, setImage] = useState(null); 
+  const [imagePreview, setImagePreview] = useState(null); 
   const navigate = useNavigate();
   const user = auth.currentUser;
 
@@ -26,7 +30,7 @@ const UserEdit = () => {
           toast.error("No user data found!");
         }
       } else {
-        navigate("/login"); // Redirect to login if not authenticated
+        navigate("/login"); 
       }
       setLoading(false);
     };
@@ -42,13 +46,38 @@ const UserEdit = () => {
     }));
   };
 
+  const handleImageChange = (e) => {
+    const selectedImage = e.target.files[0]; 
+    setImage(selectedImage); 
+    setImagePreview(URL.createObjectURL(selectedImage)); 
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (user) {
       const userDoc = doc(db, "users", user.uid);
+      
+      if (image) {
+        const imageRef = ref(storage, `images/${image.name}`);
+        await uploadBytes(imageRef, image);
+        const imageUrl = await getDownloadURL(imageRef);
+        userData.imageUrl = imageUrl; 
+      }
+
       await setDoc(userDoc, userData, { merge: true });
       toast.success("User data updated successfully!");
-      navigate("/user"); // Redirect to profile page after update
+      navigate("/user"); 
+      const userUpdate = {
+        displayName: userData.displayName,
+        phone: userData.phone,
+      };
+
+      await updateProfile(auth.currentUser, userUpdate); 
+
+      if (image) {
+        const imageUrl = await getDownloadURL(ref(storage, `images/${image.name}`)); 
+        await setDoc(userDoc, { imageUrl: imageUrl }, { merge: true }); 
+      }
     }
   };
 
@@ -97,7 +126,28 @@ const UserEdit = () => {
             onChange={handleChange}
           />
         </div>
-        <button type="submit" className="btn btn-primary">Update</button>
+        <div className="mb-3">
+          <label htmlFor="image" className="form-label">Upload Image</label>
+          <input
+            type="file"
+            className="form-control"
+            id="image"
+            name="image"
+            accept="image/*"
+            onChange={handleImageChange}
+          />
+        </div>
+        {imagePreview && (
+          <div className="mb-3 text-center">
+            <img 
+              src={imagePreview} 
+              alt="Preview of user upload" 
+              className="img-preview" 
+              style={{ width: 'auto', height: 'auto' }} 
+            />
+          </div>
+        )}
+        <button type="submit" className="btn btn-dark">Update</button>
       </form>
     </div>
     <Footer />

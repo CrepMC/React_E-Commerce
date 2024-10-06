@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Footer, Navbar } from "../components";
 import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../firebase/firebase-config";
+import { auth, db } from "../firebase/firebase-config";
 import { createUserWithEmailAndPassword, updateProfile, onAuthStateChanged } from "firebase/auth";
+import { collection, addDoc } from "firebase/firestore";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -28,6 +29,29 @@ const Register = () => {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name });
+
+      // Add user data to Firestore collection
+      const usersCollection = collection(db, "users");
+      await addDoc(usersCollection, {
+        uid: userCredential.user.uid,
+        displayName: userCredential.user.displayName,
+        email: userCredential.user.email,
+        phone: "",
+        address: "",
+        cartItems: [],
+        wishlist: [],
+        reviews: [],
+        ratings: [],
+        totalReviews: 0,
+        orders: [],
+      });
+
+      // Log in the user automatically after registration
+      await auth.signInWithEmailAndPassword(email, password);
+
+      // Redirect to the home page after successful registration and login
+      navigate("/");
+
       setSuccess("Registration successful! Redirecting to login...");
       setTimeout(() => navigate("/login"), 2000); // Redirect after 2 seconds
     } catch (error) {
