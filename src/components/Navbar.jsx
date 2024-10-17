@@ -28,14 +28,14 @@ const Navbar = () => {
     };
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 sticky-top">
-            <div className="container">
+        <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 sticky-top d-flex align-item-center justify-content-around">
+            <div className="d-flex justify-content-around align-items-center">
                 <NavLink className="navbar-brand fw-bold fs-4 px-2" to="/">React Ecommerce</NavLink>
                 <button className="navbar-toggler mx-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
 
-                <div className="collapse navbar-collapse" id="navbarSupportedContent">
+                <div className="d-flex align-items-center justify-content-around px-3" id="navbarSupportedContent">
                     <ul className="navbar-nav m-auto my-2 text-center">
                         <li className="nav-item">
                             <NavLink className="nav-link" to="/">Home</NavLink>
@@ -63,25 +63,34 @@ const Navbar = () => {
             <div className="buttons text-right">
                 {user ? (
                     <>
-                        <img src="./assets/anonymous.png" alt="User" className="rounded-circle" style={{ height: "50px", objectFit: "scale-down" }} />
-                        <span className="navbar-text mx-2">
-                            <NavLink className="nav-link" to="/user/edit">Welcome, {user.displayName || "new user"}</NavLink>
-                        </span>
-                        <button className="btn btn-outline-dark m-2" onClick={handleLogout}>Logout</button>
+                        <div className="d-flex align-items-center">
+                            <img src="./assets/anonymous.png" alt="User" className="rounded-circle" style={{ height: "50px", objectFit: "scale-down" }} />
+                            <span className="navbar-text mx-2">
+                                <NavLink className="nav-link" to="/user/edit">Welcome, {user.displayName || "new user"}</NavLink>
+                            </span>
+                            <button className="btn btn-sm btn-outline-dark m-2" onClick={handleLogout}>Logout</button>
+                            <NavLink to="/cart" className="btn btn-sm btn-outline-dark m-2">
+                                <i className="fa fa-cart-shopping mr-1"></i> Cart ({cartItems.length})
+                            </NavLink>
+                        </div>
                     </>
                 ) : (
                     <>
-                        <NavLink to="/login" className="btn btn-outline-dark m-2">
-                            <i className="fa fa-sign-in-alt mr-1"></i> Login
-                        </NavLink>
-                        <NavLink to="/register" className="btn btn-outline-dark m-2">
-                            <i className="fa fa-user-plus mr-1"></i> Register
-                        </NavLink>
+                        <div className="d-flex align-items-center">
+                            <div className="btn-group btn-group-sm">
+                                <NavLink to="/login" className="btn btn-outline-dark">
+                                    <i className="fa fa-sign-in-alt mr-1"></i> Login
+                                </NavLink>
+                                <NavLink to="/register" className="btn btn-outline-dark">
+                                    <i className="fa fa-user-plus mr-1"></i> Register
+                                </NavLink>
+                            </div>
+                            <NavLink to="/cart" className="btn btn-sm btn-outline-dark m-2">
+                                <i className="fa fa-cart-shopping mr-1"></i> Cart ({cartItems.length})
+                            </NavLink>
+                        </div>
                     </>
                 )}
-                <NavLink to="/cart" className="btn btn-outline-dark m-2">
-                    <i className="fa fa-cart-shopping mr-1"></i> Cart ({cartItems.length})
-                </NavLink>
             </div>
         </nav>
     );

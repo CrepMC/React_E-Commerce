@@ -3,7 +3,7 @@ import { Footer, Navbar } from "../components";
 import { Link, useNavigate } from "react-router-dom";
 import { auth, db } from "../firebase/firebase-config";
 import { createUserWithEmailAndPassword, updateProfile, onAuthStateChanged } from "firebase/auth";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -22,10 +22,32 @@ const Register = () => {
     return () => unsubscribe();
   }, [navigate]);
 
+  const validatePassword = (password) => {
+    return /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/.test(password);
+  };
+
+  const isDisplayNameUnique = async (displayName) => {
+    const usersCollection = collection(db, "users");
+    const q = query(usersCollection, where("displayName", "==", displayName));
+    const querySnapshot = await getDocs(q);
+    return querySnapshot.empty;
+  };
+
   const handleRegister = async (e) => {
     e.preventDefault();
     setError(""); // Reset error message
     setSuccess(""); // Reset success message
+
+    if (!validatePassword(password)) {
+      setError("Password must be at least 8 characters long and contain both letters and numbers.");
+      return;
+    }
+
+    if (!(await isDisplayNameUnique(name))) {
+      setError("Display name is already taken.");
+      return;
+    }
+
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(userCredential.user, { displayName: name });
@@ -36,6 +58,7 @@ const Register = () => {
         uid: userCredential.user.uid,
         displayName: userCredential.user.displayName,
         email: userCredential.user.email,
+        // role: "user",
         phone: "",
         address: "",
         cartItems: [],
@@ -46,14 +69,11 @@ const Register = () => {
         orders: [],
       });
 
-      // Log in the user automatically after registration
-      await auth.signInWithEmailAndPassword(email, password);
-
       setSuccess("Registration successful! Redirecting to login...");
-      // Redirect to the home page after successful registration and login
       navigate("/");
 
     } catch (error) {
+      console.error("Error writing document: ", error);
       setError("Error registering: " + error.message);
     }
   };

@@ -12,6 +12,7 @@ const Cart = () => {
   const state = useSelector((state) => state.handleCart);
   const dispatch = useDispatch();
   const user = auth.currentUser;
+  console.log(user)
   const navigate = useNavigate();
 
   useEffect(() => {

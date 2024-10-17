@@ -21,7 +21,7 @@ const Product = () => {
   const addProduct = async (product) => {
     dispatch(addCart(product));
 
-    const user = auth.currentUser; // Define 'user' using Firebase auth
+    const user = auth.currentUser;
     if (user) {
       const userDoc = doc(db, "users", user.uid);
       await updateDoc(userDoc, {
@@ -87,7 +87,6 @@ const Product = () => {
               alt={product.title}
               width="300px"
               height="300px"
-              // style={{"objectFit": "fill"}}
             />
           </div>
           <div className="col-md-6 py-5">

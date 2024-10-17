@@ -17,7 +17,7 @@ const Products = () => {
 
   const addProduct = async (product) => {
     dispatch(addCart(product));
-    const user = auth.currentUser();
+    const user = auth.currentUser;
     if (user) {
       const userDoc = doc(db, "users", user.uid);
       await updateDoc(userDoc, {

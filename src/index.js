@@ -19,11 +19,13 @@ import {
   PageNotFound,
   UserEdit,
   Profile,
+  Admin,
 } from "./pages";
 
 import ScrollToTop from "./components/ScrollToTop";
 import { Toaster } from "react-hot-toast";
 import RequireAuth from "./components/RequireAuth"; // Import the HOC
+import RequireAdmin from "./components/RequireAdmin";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -42,6 +44,7 @@ root.render(
           <Route path="/user/edit" element={<RequireAuth><UserEdit /></RequireAuth>} />
           <Route path="/cart" element={<RequireAuth><Cart /></RequireAuth>} />
           <Route path="/checkout" element={<RequireAuth><Checkout /></RequireAuth>} />
+          <Route path="/checkout" element={<RequireAdmin><Checkout /></RequireAdmin>} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Provider>
