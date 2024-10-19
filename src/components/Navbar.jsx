@@ -4,9 +4,10 @@ import { useSelector } from "react-redux";
 import { auth } from "../firebase/firebase-config";
 import { onAuthStateChanged } from "firebase/auth";
 
-const Navbar = () => {
+const Navbar = ({ onSearch }) => {
     const cartItems = useSelector(state => state.handleCart);
     const [user, setUser] = useState(null);
+    const [searchQuery, setSearchQuery] = useState("");
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
@@ -27,6 +28,11 @@ const Navbar = () => {
         }
     };
 
+    const handleSearch = (e) => {
+        setSearchQuery(e.target.value);
+        onSearch(e.target.value); // Gọi hàm onSearch được truyền dưới dạng prop
+    };
+
     return (
         <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 sticky-top d-flex align-item-center justify-content-around">
             <div className="d-flex justify-content-around align-items-center">
@@ -34,7 +40,6 @@ const Navbar = () => {
                 <button className="navbar-toggler mx-2" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="navbar-toggler-icon"></span>
                 </button>
-
                 <div className="d-flex align-items-center justify-content-around px-3" id="navbarSupportedContent">
                     <ul className="navbar-nav m-auto my-2 text-center">
                         <li className="nav-item">
@@ -50,12 +55,19 @@ const Navbar = () => {
                             <NavLink className="nav-link" to="/contact">Contact</NavLink>
                         </li>
                     </ul>
-                    <div className="search-box">
+                    <div className="search-box ml-5">
                         <div className="input-group input-group-sm">
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Search"
+                                aria-label="Search"
+                                value={searchQuery}
+                                onChange={handleSearch}
+                            />
                             <button className="btn btn-outline-secondary" type="button" id="button-addon1">
                                 <i className="fa-solid fa-magnifying-glass"></i>
                             </button>
-                            <input type="text" className="form-control" placeholder="Search" aria-label="Search" aria-describedby="button-addon1" />
                         </div>
                     </div>
                 </div>

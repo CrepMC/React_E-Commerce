@@ -19,7 +19,6 @@ import {
   PageNotFound,
   UserEdit,
   Profile,
-  Admin,
 } from "./pages";
 
 import ScrollToTop from "./components/ScrollToTop";
