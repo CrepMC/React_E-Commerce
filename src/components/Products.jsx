@@ -79,6 +79,7 @@ const Products = () => {
     );
   };
 
+  // eslint-disable-next-line no-unused-vars
   const filterProduct = (cat) => {
     const updatedList = data.filter((item) => item.category === cat);
     setFilter(updatedList);

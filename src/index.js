@@ -19,6 +19,7 @@ import {
   PageNotFound,
   UserEdit,
   Profile,
+  SearchResults,
 } from "./pages";
 
 import ScrollToTop from "./components/ScrollToTop";
@@ -44,6 +45,7 @@ root.render(
           <Route path="/cart" element={<RequireAuth><Cart /></RequireAuth>} />
           <Route path="/checkout" element={<RequireAuth><Checkout /></RequireAuth>} />
           <Route path="/checkout" element={<RequireAdmin><Checkout /></RequireAdmin>} />
+          <Route path="/search" element={<SearchResults />} />
           <Route path="*" element={<PageNotFound />} />
         </Routes>
       </Provider>
