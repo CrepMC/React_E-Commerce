@@ -12,8 +12,8 @@ const UserEdit = () => {
     displayName: '',
     email: '',
     phone: '',
+    imageUrl: '', // Add imageUrl to state
   });
-  const [rating, setRating] = useState(0); // Moved rating state outside of StarRating
   const [loading, setLoading] = useState(true);
   const [image, setImage] = useState(null);
   const [imagePreview, setImagePreview] = useState(null);
@@ -62,7 +62,7 @@ const UserEdit = () => {
         const imageRef = ref(storage, `images/${image.name}`);
         await uploadBytes(imageRef, image);
         const imageUrl = await getDownloadURL(imageRef);
-        userData.imageUrl = imageUrl;
+        userData.imageUrl = imageUrl; // Update imageUrl in userData
       }
 
       await setDoc(userDoc, userData, { merge: true });
@@ -71,6 +71,7 @@ const UserEdit = () => {
       const userUpdate = {
         displayName: userData.displayName,
         phone: userData.phone,
+        photoURL: userData.imageUrl, // Update user's profile picture
       };
 
       await updateProfile(auth.currentUser, userUpdate);
@@ -125,31 +126,6 @@ const UserEdit = () => {
               value={userData.phone}
               onChange={handleChange}
             />
-          </div>
-          <div className='rating d-flex justify-content-center'>
-            {[1, 2, 3, 4, 5].map((starValue) => (
-              <React.Fragment key={starValue}>
-                <input
-                  type='radio'
-                  id={`star${starValue}`}
-                  name='rate'
-                  value={starValue}
-                  checked={rating === starValue}
-                  onChange={() => setRating(starValue)} // Updated to use setRating directly
-                  style={{ position: 'absolute', appearance: 'none' }}
-                />
-                <label
-                  htmlFor={`star${starValue}`}
-                  title={`Rate ${starValue}`}
-                  style={{
-                    cursor: 'pointer',
-                    fontSize: '30px',
-                    color: rating >= starValue ? '#ffa723' : '#666',
-                  }}>
-                  ★
-                </label>
-              </React.Fragment>
-            ))}
           </div>
           <div className='mb-3'>
             <label htmlFor='image' className='form-label'>

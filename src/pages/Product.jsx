@@ -12,8 +12,8 @@ const Product = () => {
   const { id } = useParams();
   const [product, setProduct] = useState(null);
   const [similarProducts, setSimilarProducts] = useState([]);
-  const [loading, setLoading] = useState(false);
-  const [loading2, setLoading2] = useState(false);
+  const [loading, setLoading] = useState(true); // Set loading to true initially
+  const [loading2, setLoading2] = useState(true); // Set loading2 to true initially
   const navigate = useNavigate();
 
   const dispatch = useDispatch();
@@ -31,21 +31,20 @@ const Product = () => {
   };
 
   useEffect(() => {
-    const getProduct = async () => {
-      setLoading(true);
-      setLoading2(true);
-      const response = await fetch(`https://fakestoreapi.com/products/${id}`);
-      const data = await response.json();
-      setProduct(data);
+    const fetchProduct = async () => {
+      const response = await fetch("/womenShoes.json");
+      const products = await response.json();
+      const foundProduct = products.find((p) => p.id === id);
+      setProduct(foundProduct);
       setLoading(false);
-      const response2 = await fetch(
-        `https://fakestoreapi.com/products/category/${data.category}`
-      );
-      const data2 = await response2.json();
-      setSimilarProducts(data2);
+
+      // Fetch similar products
+      const similarProducts = products.filter((p) => p.category === foundProduct.category && p.id !== foundProduct.id);
+      setSimilarProducts(similarProducts);
       setLoading2(false);
     };
-    getProduct();
+
+    fetchProduct();
   }, [id]);
 
   const handleBuy = () => {
@@ -78,36 +77,39 @@ const Product = () => {
     if (!product) return null;
 
     return (
-      <div className="container my-5 py-2">
-        <div className="row">
-          <div className="col-md-6 col-sm-12 py-3">
+      <div className='container my-5 py-2'>
+        <div className='row'>
+          <div className='col-md-6 col-sm-12 py-3'>
             <img
-              className="img-fluid"
+              className='img-fluid'
               src={product.image}
               alt={product.title}
-              width="300px"
-              height="300px"
+              width='300px'
+              height='300px'
             />
           </div>
-          <div className="col-md-6 py-5">
-            <h4 className="text-uppercase text-muted">{product.category}</h4>
-            <h1 className="display-5">{product.title}</h1>
-            <p className="lead">
-              {product.rating && product.rating.rate}{" "}
-              <i className="fa fa-star"></i>
+          <div className='col-md-6 py-5'>
+            <h4 className='text-uppercase text-muted'>{product.category}</h4>
+            <h1 className='display-5'>{product.title}</h1>
+            <p className='lead'>
+              {product.rating && product.rating.rate}{' '}
+              <i className='fa fa-star'></i>
+              <i className='fa fa-star'></i>
+              <i className='fa fa-star'></i>
+              <i className='fa fa-star'></i>
+              <i className='fa fa-star'></i>
             </p>
-            <h3 className="display-6 my-4">${product.price}</h3>
-            <p className="lead">{product.description}</p>
+            <h3 className='display-6 my-4'>${product.price}</h3>
+            <p className='lead'>{product.description}</p>
             <button
-              className="btn btn-outline-dark"
-              onClick={() => addProduct(product)}
-            >
+              className='btn btn-outline-dark'
+              onClick={() => addProduct(product)}>
               Add to Cart
             </button>
-            <button className="btn btn-dark mx-3" onClick={handleBuy}>
+            <button className='btn btn-dark mx-3' onClick={handleBuy}>
               Buy
             </button>
-            <Link to="/cart" className="btn btn-dark mx-3">
+            <Link to='/cart' className='btn btn-dark mx-3'>
               Go to Cart
             </Link>
           </div>
@@ -142,10 +144,11 @@ const Product = () => {
                 alt="Card"
                 height={200}
                 width={200}
+                style={{ objectFit: "contain" }}
               />
               <div className="card-body">
                 <h5 className="card-title">
-                  {item.title.substring(0, 15)}...
+                  {item.title}
                 </h5>
               </div>
               <div className="card-body">

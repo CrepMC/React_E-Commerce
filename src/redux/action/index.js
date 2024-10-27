@@ -13,3 +13,10 @@ export const delCart = (product) =>{
         payload:product
     }
 }
+
+// For Clear Cart
+export const clearCart = () => {
+    return {
+        type: 'CLEAR_CART',
+    };
+};

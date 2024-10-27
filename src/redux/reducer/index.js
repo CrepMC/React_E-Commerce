@@ -4,3 +4,4 @@ const rootReducers = combineReducers({
     handleCart,
 })
 export default rootReducers
+

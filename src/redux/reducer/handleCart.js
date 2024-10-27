@@ -4,24 +4,20 @@ const getInitialCart = () => {
   return storedCart ? JSON.parse(storedCart) : [];
 };
 
-
 const handleCart = (state = getInitialCart(), action) => {
   const product = action.payload;
   let updatedCart;
 
   switch (action.type) {
     case "ADDITEM":
-      // Check if product already in cart
       const exist = state.find((x) => x.id === product.id);
       if (exist) {
-        // Increase the quantity
         updatedCart = state.map((x) =>
           x.id === product.id ? { ...x, qty: x.qty + 1 } : x
         );
       } else {
         updatedCart = [...state, { ...product, qty: 1 }];
       }
-      // Update localStorage
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       return updatedCart;
 
@@ -34,7 +30,6 @@ const handleCart = (state = getInitialCart(), action) => {
           x.id === product.id ? { ...x, qty: x.qty - 1 } : x
         );
       }
-      // Update localStorage
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       return updatedCart;
 
@@ -43,10 +38,13 @@ const handleCart = (state = getInitialCart(), action) => {
       localStorage.setItem("cart", JSON.stringify(updatedCart));
       return updatedCart;
 
+    case "CLEAR_CART":
+      localStorage.removeItem("cart"); // Clear localStorage on cart clear
+      return [];
+
     default:
       return state;
   }
 };
-
 
 export default handleCart;

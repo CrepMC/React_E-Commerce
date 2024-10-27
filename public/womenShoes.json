@@ -1,0 +1,142 @@
+[
+  {
+    "id": "K1",
+    "image": "/assets/product-images/K01.jpg",
+    "title": "Chic Evening Sandals",
+    "description": "These chic evening sandals are designed for elegance and comfort, making them perfect for formal events or a night out. The soft straps and cushioned footbed ensure you can dance the night away without discomfort.",
+    "price": 59.99
+  },
+  {
+    "id": "K2",
+    "image": "/assets/product-images/K02.jpg",
+    "title": "Sporty Women's Sneakers",
+    "description": "Stay active and stylish with these sporty women's sneakers. Ideal for running errands or hitting the gym, they provide excellent support and breathability, ensuring your feet stay comfortable all day long.",
+    "price": 49.99
+  },
+  {
+    "id": "K3",
+    "image": "/assets/product-images/K03.jpg",
+    "title": "Classic Black Pumps",
+    "description": "Elevate your wardrobe with these classic black pumps. Their timeless design and sleek silhouette make them a versatile choice for both professional and casual settings. Perfect for the office or a dinner date.",
+    "price": 69.99
+  },
+  {
+    "id": "K4",
+    "image": "/assets/product-images/K04.jpg",
+    "title": "Trendy Ankle Boots",
+    "description": "Step out in style with these trendy ankle boots. Featuring a stylish design and durable materials, they are perfect for adding a touch of flair to any outfit, whether it's jeans or a dress.",
+    "price": 79.99
+  },
+  {
+    "id": "K5",
+    "image": "/assets/product-images/K05.jpg",
+    "title": "Comfortable Slip-Ons",
+    "description": "Experience ultimate comfort with these slip-on shoes. Designed for easy wear, they are perfect for busy days when you need to be on your feet. The cushioned insole provides support for all-day wear.",
+    "price": 39.99
+  },
+  {
+    "id": "K6",
+    "image": "/assets/product-images/K06.jpg",
+    "title": "Stylish Loafers",
+    "description": "These stylish loafers are a must-have for any wardrobe. With their sleek design and comfortable fit, they can be dressed up or down, making them perfect for any occasion.",
+    "price": 54.99
+  },
+  {
+    "id": "K7",
+    "image": "/assets/product-images/K07.jpg",
+    "title": "Elegant Wedge Sandals",
+    "description": "Add a touch of elegance to your summer wardrobe with these wedge sandals. Their comfortable height and stylish design make them perfect for both casual outings and special occasions.",
+    "price": 64.99
+  },
+  {
+    "id": "K8",
+    "image": "/assets/product-images/K08.jpg",
+    "title": "Casual Canvas Shoes",
+    "description": "Perfect for everyday wear, these casual canvas shoes are lightweight and breathable. They are ideal for running errands or enjoying a day out with friends.",
+    "price": 34.99
+  },
+  {
+    "id": "K9",
+    "image": "/assets/product-images/K09.jpg",
+    "title": "Fabulous High Heels",
+    "description": "Make a statement with these fabulous high heels. Designed for the confident woman, they feature a stunning design that will turn heads at any event.",
+    "price": 89.99
+  },
+  {
+    "id": "K10",
+    "image": "/assets/product-images/K10.jpg",
+    "title": "Cozy Winter Boots",
+    "description": "Stay warm and stylish during the colder months with these cozy winter boots. They are lined for extra warmth and feature a non-slip sole for safety on icy surfaces.",
+    "price": 74.99
+  },
+  {
+    "id": "K11",
+    "image": "/assets/product-images/K11.jpg",
+    "title": "Charming Ballet Flats",
+    "description": "These charming ballet flats are perfect for adding a touch of femininity to any outfit. Their comfortable design makes them ideal for all-day wear, whether at work or play.",
+    "price": 44.99
+  },
+  {
+    "id": "K12",
+    "image": "/assets/product-images/K12.jpg",
+    "title": "Sporty Hiking Shoes",
+    "description": "Get ready for your next adventure with these sporty hiking shoes. They provide excellent grip and support, making them perfect for trails and outdoor activities.",
+    "price": 69.99
+  },
+  {
+    "id": "K13",
+    "image": "/assets/product-images/K13.jpg",
+    "title": "Classic White Sneakers",
+    "description": "These classic white sneakers are a timeless addition to any wardrobe. Their versatile design allows them to be paired with almost any outfit, from casual to chic.",
+    "price": 49.99
+  },
+  {
+    "id": "K14",
+    "image": "/assets/product-images/K14.jpg",
+    "title": "Elegant Evening Heels",
+    "description": "Step into elegance with these evening heels. Perfect for formal events, they feature a stunning design that complements any evening gown or cocktail dress.",
+    "price": 79.99
+  },
+  {
+    "id": "K15",
+    "image": "/assets/product-images/K15.jpg",
+    "title": "Casual Flip Flops",
+    "description": "Enjoy the summer sun with these casual flip flops. Lightweight and easy to wear, they are perfect for beach days or lounging by the pool.",
+    "price": 19.99
+  },
+  {
+    "id": "K16",
+    "image": "/assets/product-images/K16.jpg",
+    "title": "Stylish Combat Boots",
+    "description": "Make a bold statement with these stylish combat boots. Their rugged design and comfortable fit make them perfect for both casual and edgy outfits.",
+    "price": 84.99
+  },
+  {
+    "id": "K17",
+    "image": "/assets/product-images/K17.jpg",
+    "title": "Chic Platform Sandals",
+    "description": "These chic platform sandals are perfect for adding height without sacrificing comfort. Ideal for summer outings, they pair well with dresses and shorts alike.",
+    "price": 69.99
+  },
+  {
+    "id": "K18",
+    "image": "/assets/product-images/K18.jpg",
+    "title": "Classic Derby Shoes",
+    "description": "These classic derby shoes are a staple for any wardrobe. Their timeless design makes them suitable for both formal and casual occasions.",
+    "price": 59.99
+  },
+  {
+    "id": "K19",
+    "image": "/assets/product-images/K19.jpg",
+    "title": "Trendy Espadrilles",
+    "description": "Stay stylish this summer with these trendy espadrilles. Their breathable design and comfortable fit make them perfect for warm weather outings.",
+    "price": 39.99
+  },
+  {
+    "id": "K20",
+    "image": "/assets/product-images/K20.jpg",
+    "title": "Elegant Evening Boots",
+    "description": "These elegant evening boots are designed to impress. With their sophisticated look and comfortable fit, they are perfect for any formal occasion.",
+    "price": 89.99
+  }
+]
