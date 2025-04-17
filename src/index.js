@@ -40,11 +40,11 @@ root.render(
       <Provider store={store}>
         <Elements stripe={stripePromise}>
           <Routes>
-            <Route path="/" element={<RequireAuth><Home /></RequireAuth>} />
-            <Route path="/product" element={<RequireAuth><Products /></RequireAuth>} />
-            <Route path="/product/:id" element={<RequireAuth><Product /></RequireAuth>} />
-            <Route path="/about" element={<RequireAuth><AboutPage /></RequireAuth>} />
-            <Route path="/contact" element={<RequireAuth><ContactPage /></RequireAuth>} />
+            <Route path="/" element={<Home />} />
+            <Route path="/product" element={<Products />} />
+            <Route path="/product/:id" element={<Product />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/contact" element={<ContactPage />} />
             <Route path="/login" element={<Login />} />
             <Route path="/register" element={<Register />} />
             <Route path="/user" element={<RequireAuth><Profile /></RequireAuth>} />
